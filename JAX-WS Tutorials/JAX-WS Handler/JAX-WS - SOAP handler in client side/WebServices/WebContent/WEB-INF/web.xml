@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, 
+Inc.//DTD Web Application 2.3//EN"
+"http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+    <listener>
+        <listener-class>
+        	com.sun.xml.ws.transport.http.servlet.WSServletContextListener
+        </listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>user</servlet-name>
+        <servlet-class>
+        	com.sun.xml.ws.transport.http.servlet.WSServlet
+        </servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <security-role>
+     	<description>Normal operator user</description>
+     	<role-name>operator</role-name>
+   	</security-role>
+
+	<security-constraint>
+      	<web-resource-collection>
+        	<web-resource-name>Operator Roles Security</web-resource-name>
+        	<url-pattern>/user</url-pattern>
+      	</web-resource-collection>
+
+      	<auth-constraint>
+        	<role-name>operator</role-name>
+      	</auth-constraint>
+      	<user-data-constraint>
+          	<transport-guarantee>NONE</transport-guarantee>
+      	</user-data-constraint>
+   	</security-constraint>
+
+	<login-config>
+      	<auth-method>BASIC</auth-method>
+   	</login-config>
+
+    <servlet-mapping>
+        <servlet-name>user</servlet-name>
+        <url-pattern>/user</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>120</session-timeout>
+    </session-config>
+</web-app>
